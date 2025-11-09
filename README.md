@@ -164,7 +164,8 @@ Frontend runs at: `http://localhost:5173/`
 
 ## 📚 Documentation
 See the full system design and API reference in:  
-📄 `Equipment_Lending_Portal_Documentation_UtsabRoy.docx`
+📄 
+[Equipment_Lending_Portal_Documentation_UtsabRoy.docx](https://github.com/user-attachments/files/23441016/Equipment_Lending_Portal_Documentation_UtsabRoy.docx)
 
 ---
 
