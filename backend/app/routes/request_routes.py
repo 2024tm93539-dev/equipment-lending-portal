@@ -9,6 +9,9 @@ request_bp = Blueprint('request_bp', __name__)
 def is_admin(user_id):
     user = User.query.get(user_id)
     return user and user.role == 'admin'
+def is_staff_or_admin(user_id):
+    user = User.query.get(user_id)
+    return user and user.role in ["admin", "staff"]
 
 # Student: Create a borrow request
 @request_bp.route('/', methods=['POST'])
@@ -40,8 +43,8 @@ def create_request():
 @jwt_required()
 def update_request_status(request_id):
     current_user = int(get_jwt_identity())
-    if not is_admin(current_user):
-        return jsonify({"msg": "Admin privilege required"}), 403
+    if not is_staff_or_admin(current_user):
+        return jsonify({"msg": "Admin or staff privilege required"}), 403
 
     data = request.get_json() or {}
     status = data.get('status')
@@ -90,8 +93,8 @@ def return_equipment(request_id):
 @jwt_required()
 def list_all_requests():
     current_user = int(get_jwt_identity())
-    if not is_admin(current_user):
-        return jsonify({"msg": "Admin privilege required"}), 403
+    if not is_staff_or_admin(current_user):
+        return jsonify({"msg": "Admin or staff privilege required"}), 403
 
     requests = BorrowRequest.query.all()
     return jsonify([
@@ -121,4 +124,3 @@ def list_my_requests():
             "return_date": r.return_date.isoformat() if r.return_date else None
         } for r in requests
     ])
-
