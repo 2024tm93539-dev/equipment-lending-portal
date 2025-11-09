@@ -126,7 +126,7 @@ Frontend runs at: `http://localhost:5173/`
 
 ## 📚 Documentation
 See the detailed technical documentation here:  
-📄 `Equipment_Lending_Portal_Documentation_UtsabRoy.docx`
+[Equipment_Lending_Portal_Documentation_UtsabRoy.docx](https://github.com/user-attachments/files/23440954/Equipment_Lending_Portal_Documentation_UtsabRoy.docx)
 
 ---
 
@@ -134,3 +134,4 @@ See the detailed technical documentation here:
 **Utsab Roy**  
 M.Tech – Software Engineering (Full Stack Specialization)  
 BITS Pilani  
+
