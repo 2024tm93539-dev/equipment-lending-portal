@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from app import db
 from app.models.models import User
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_jwt_extended import create_access_token
 
 user_bp = Blueprint('user_bp', __name__)
@@ -43,4 +44,14 @@ def login():
     # create token with user id as identity
     access_token = create_access_token(identity=str(user.id))
     return jsonify({"access_token": access_token, "user": {"id": user.id, "name": user.name, "email": user.email, "role": user.role}})
+@user_bp.route('/all', methods=['GET'])
+@jwt_required()
+def list_users():
+    current_user = int(get_jwt_identity())
+    from app.models.models import User
+    user = User.query.get(current_user)
+    if user.role not in ['admin', 'staff']:
+        return jsonify({"msg": "Not authorized"}), 403
+    users = User.query.all()
+    return jsonify([{"id": u.id, "name": u.name, "email": u.email, "role": u.role} for u in users])
 
